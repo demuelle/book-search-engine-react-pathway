@@ -5,7 +5,6 @@ const { signToken } = require("../utils/auth")
 const resolvers = {
     Query: {
         me: async (parent, args, context) => {
-            console.log(context);
             if (context.user) {
                 const userData = await User.findOne({ _id: context.user._id})
                 .select("-__v -password")
@@ -20,7 +19,6 @@ const resolvers = {
     Mutation: {
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
-            console.log("called the login mutation");
 
             if (!user) {
                 throw new AuthenticationError("Incorrect credentials");
@@ -42,10 +40,8 @@ const resolvers = {
             const token = signToken(user);
 
             return {token, user};
-            console.log("called the addUser mutation");
         },
         saveBook: async (parent, args, context) => {
-            console.log(args);
             if (context.user) {
                 const updatedUser = await User.findByIdAndUpdate(
                     { _id: context.user._id },
@@ -55,12 +51,9 @@ const resolvers = {
 
                 return updatedUser;
             }
-            console.log("called the saveBook mutation");
-
             throw new AuthenticationError("You need to be logged in!");
         },
         removeBook: async (parent, {bookId}, context) => {
-            console.log("Called the removeBook mutation");
             if (context.user) {
                 const updatedUser = await User.findByIdAndUpdate(
                     { _id: context.user._id },
