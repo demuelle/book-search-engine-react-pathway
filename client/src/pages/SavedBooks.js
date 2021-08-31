@@ -19,7 +19,6 @@ const SavedBooks = () => {
         query:QUERY_ME,
         data: { me: renamedResultOfMutation },
       });
-      console.log("gorbo", renamedResultOfMutation);
     },
   });
 
@@ -34,12 +33,10 @@ const SavedBooks = () => {
     }
 
     try {
-      const response = await deleteBookFunction({
+      await deleteBookFunction({
         variables: { bookId }
       });
-      console.log(`Data is `, response.data.removeBook.bookCount)
       removeBookId(bookId);
-      console.log(`removed`,bookId);
 
     } catch (e) {
       console.error(e);

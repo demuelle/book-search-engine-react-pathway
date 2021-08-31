@@ -10,7 +10,6 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import Auth from '../utils/auth';
 
 const LoginForm = () => {
-  console.log("Login", new Date());
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -38,8 +37,6 @@ const LoginForm = () => {
       });
 
       Auth.login(data.login.token);
-
-      console.log(data);
     } catch (e) {
       console.error(e);
       setShowAlert(true);
